@@ -82,6 +82,7 @@ class LL {
             System.out.print(c.Data + "->");
             c = c.next;
         }
+        System.out.print("Null");
         System.out.println();
     }
 
@@ -103,6 +104,31 @@ class LL {
         return size;
     }
 
+    void reverseIterate() {
+        if (head == null || head.next == null)
+            return;
+        Node previous = head;
+        Node current = head.next;
+        while (current != null) {
+            Node nexrNode = current.next;
+            current.next = previous;
+            // update
+            previous = current;
+            current = nexrNode;
+        }
+        head.next = null;
+        head = previous;
+    }
+
+    public Node reverserecursive(Node head) {
+        if (head == null || head.next == null)
+            return head;
+        Node newnode = reverserecursive(head.next);
+        head.next.next = head;
+        head.next = null;
+        return newnode;
+    }
+
     public static void main(String[] args) {
         LL list = new LL();
         Scanner sc = new Scanner(System.in);
@@ -112,12 +138,18 @@ class LL {
         list.addfirst("a");
         list.addfirst("M");
         list.printlist();
-        list.dellast();
+        // list.dellast();
+        // list.printlist();
+        // list.delfirst();
+        // list.printlist();
+        // System.out.println("Enter the char to search ");
+        // char ch = sc.next().charAt(0);
+        // list.search(ch);
+        // System.out.println("Size is :" + list.size());
+        // list.reverseIterate();
+        // list.printlist();
+        list.head = list.reverserecursive(list.head);
         list.printlist();
-        list.delfirst();
-        list.printlist();
-        System.out.println("Enter the char to search ");
-        char ch = sc.next().charAt(0);
-        System.out.println("Size is :" + list.size());
+        System.out.println(list.head.Data);
     }
 }
