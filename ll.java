@@ -129,14 +129,37 @@ class LL {
         return newnode;
     }
 
+    public void deletenode(int n) {
+        if (head == null)
+            return;
+        n = size - n;
+        size--;
+        if (n == 0) {
+            head = head.next;
+            return;
+        }
+        if (head.next == null) {
+            head = null;
+            return;
+        }
+        int i = 1;
+        Node current = head;
+        while (i != n) {
+            current = current.next;
+            i++;
+        }
+        current.next = current.next.next;
+
+    }
+
     public static void main(String[] args) {
         LL list = new LL();
         Scanner sc = new Scanner(System.in);
         list.addfirst("s");
-        list.addfirst("a");
-        list.addfirst("n");
-        list.addfirst("a");
-        list.addfirst("M");
+        // list.addfirst("a");
+        // list.addfirst("n");
+        // list.addfirst("a");
+        // list.addfirst("M");
         list.printlist();
         // list.dellast();
         // list.printlist();
@@ -148,8 +171,12 @@ class LL {
         // System.out.println("Size is :" + list.size());
         // list.reverseIterate();
         // list.printlist();
-        list.head = list.reverserecursive(list.head);
+        // list.head = list.reverserecursive(list.head);
+        // list.printlist();
+        System.out.println(list.size);
+        // System.out.println(list.head.Data);
+        list.deletenode(2);
         list.printlist();
-        System.out.println(list.head.Data);
+        System.out.println(list.size);
     }
 }
