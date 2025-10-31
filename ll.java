@@ -7,10 +7,10 @@ class LL {
     private int size;
 
     class Node {
-        String Data;
+        int Data;
         Node next;
 
-        public Node(String data) {
+        public Node(int data) {
             this.Data = data;
             this.next = null;
             size++;
@@ -21,7 +21,7 @@ class LL {
         size = 0;
     }
 
-    public void addfirst(String data) {
+    public void addfirst(int data) {
         Node newnode = new Node(data);
         if (head == null) {
             head = newnode;
@@ -31,7 +31,7 @@ class LL {
         head = newnode;
     }
 
-    public void addlast(String data) {
+    public void addlast(int data) {
         Node newnode = new Node(data);
         if (head == null) {
             head = newnode;
@@ -86,19 +86,19 @@ class LL {
         System.out.println();
     }
 
-    void search(char ch) {
-        if (head == null) {
-            System.out.println("List is empty");
-            return;
-        }
-        Node c = head;
-        int i = 0;
-        while (c.Data.charAt(0) != ch) {
-            c = c.next;
-            i++;
-        }
-        System.out.println("Index is :" + i);
-    }
+    // void search(char ch) {
+    // if (head == null) {
+    // System.out.println("List is empty");
+    // return;
+    // }
+    // Node c = head;
+    // int i = 0;
+    // while (c.Data.charAt(0) != ch) {
+    // c = c.next;
+    // i++;
+    // }
+    // System.out.println("Index is :" + i);
+    // }
 
     int size() {
         return size;
@@ -107,8 +107,8 @@ class LL {
     void reverseIterate() {
         if (head == null || head.next == null)
             return;
-        Node previous = head;
-        Node current = head.next;
+        Node previous = null;
+        Node current = head;
         while (current != null) {
             Node nexrNode = current.next;
             current.next = previous;
@@ -116,7 +116,6 @@ class LL {
             previous = current;
             current = nexrNode;
         }
-        head.next = null;
         head = previous;
     }
 
@@ -152,31 +151,79 @@ class LL {
 
     }
 
+    public Boolean ispalindrome() {
+        return true;
+
+    }
+
+    void searchint(int ch) {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        Node c = head;
+        int i = 0;
+        while (c.Data != ch) {
+            c = c.next;
+            i++;
+        }
+        System.out.println("Index is :" + i);
+    }
+
+    public void checkpalin() {
+        int n = size / 2;
+        Node rev = head, lasth;
+        while (n-- != 1) {
+            rev = rev.next;
+        }
+        if (size % 2 == 0)
+            lasth = reverserecursive(rev.next);
+        else
+            lasth = reverserecursive(rev.next.next);
+        rev = head;
+        n = size / 2;
+        while (n-- >= 1 && rev.Data == lasth.Data) {
+            rev = rev.next;
+            lasth = lasth.next;
+        }
+        if (n == -1) {
+            System.out.println("List is Palindromic");
+            return;
+        }
+        System.out.println("List is not Palindromic");
+    }
+
     public static void main(String[] args) {
         LL list = new LL();
         Scanner sc = new Scanner(System.in);
-        list.addfirst("s");
-        // list.addfirst("a");
-        // list.addfirst("n");
-        // list.addfirst("a");
-        // list.addfirst("M");
+        list.addfirst(1);
+        list.addfirst(2);
+        list.addfirst(1);
+        list.addfirst(2);
+        list.addfirst(1);
+        list.addfirst(1);
+        list.addfirst(1);
+
         list.printlist();
         // list.dellast();
         // list.printlist();
         // list.delfirst();
         // list.printlist();
-        // System.out.println("Enter the char to search ");
+        // System.out.println("Enter the num to search ");
         // char ch = sc.next().charAt(0);
-        // list.search(ch);
+        // int n = sc.nextInt();
+        // list.searchint(n);
         // System.out.println("Size is :" + list.size());
         // list.reverseIterate();
         // list.printlist();
-        // list.head = list.reverserecursive(list.head);
+        // // // list.head = list.reverserecursive(list.head);
+        // // list.printlist();
+        // System.out.println(list.size);
+        // // System.out.println(list.head.Data);
+        // list.deletenode(2);
         // list.printlist();
-        System.out.println(list.size);
-        // System.out.println(list.head.Data);
-        list.deletenode(2);
+        // System.out.println(list.size);
+        list.checkpalin();
         list.printlist();
-        System.out.println(list.size);
     }
 }
